@@ -1,30 +1,29 @@
-/**In javascript array contains any type of value */
+/** tuple :- fix length array where each element has particular type */
 
-// let numbers = [1, 2, "3"];
+/** we work with when we use pair of values */
 
-/** If we pass this array to function that expect list of numbers then 3th element cause the issue that we use type script  */
+/** simple tuple */
+// let user: [number, string] = [0, "vishal"];
 
-// let numbers: number[] = [1, 2, 3];
+/** If we add the third element they give error */
 
-/** If we know every element is number we can write  */
+// let user: [number, string] = [0, "vishal", 69];
+let user: [number, string] = [0, "vishal"];
 
-// let numbers = [1, 2, 3];
+/** one thing remember about the tuple is internally it's represent the javascript array */
 
-/** what if the when we assign epmty array */
+/** use intelligence like "user[0]." and "user[1]."  */
 
-// let numbers = [];
+/** We also use of all method and property of array like "user." but here only one issue is we can use "PUSH" method to add element to fix array.. this is one of the reasone that solve by typescript  */
 
-/** compiler assign any[] type and we add element like */
+user.push(5);
 
-// number[0] = 1;
-// number[1] = "string";
+/** As best practise restrict tuples only two values because any more than that it's make code hard to understand for example */
 
-/**always assing type a */
+let user1: [number, string, boolean, number] = [1, "vishal", true, 0];
 
-let numbers: number[] = [];
-
-/** Typscript give one benifits is that is code completion and intelligence */
-
-// numbers.forEach(n=>n.)
-
-/** (n=>n.) we see all the properties and method of number object because our editor knows the type of "n" and they offer code complition. they boost productivity  */
+/** What is value of this user1 will be represent it's relly hard to tell
+ *
+ *
+ * Tuples are useful when only two values like key value pairs
+ */
