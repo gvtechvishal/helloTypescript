@@ -1,58 +1,30 @@
-/** primite type of javascript is
- * 1) number 2) string 3)boolean 4) undefined 5) object 6)symbol
- * it's work in typescript and also typescript add some
- * 1) any 2) unknown 3) never 4)enum 5) tuple
- */
+/**In javascript array contains any type of value */
 
-// play with primite type of typscript
+// let numbers = [1, 2, "3"];
 
-// let sales: number = 123_343_433;
-// let course:string = 'Typscript';
-// let is_published:boolean = true;
+/** If we pass this array to function that expect list of numbers then 3th element cause the issue that we use type script  */
 
-/** In typescript we don't annoted variables because
- * typescript compiler can detect which type of variables base
- * on values.
- *
- * check below code.. hover mouse on variables and see compiler
- * detect which type of variable
- */
+// let numbers: number[] = [1, 2, 3];
 
-let sales = 123_343_433;
-let course = "Typscript";
-let is_published = true;
+/** If we know every element is number we can write  */
 
-// if declare a variable only and hover it and see what is type
+// let numbers = [1, 2, 3];
 
-let level;
+/** what if the when we assign epmty array */
 
-/** typscript compiler assign any type if we not annoted.
- * It's lose the benifite of typescript.
- * best practice avoid to use.
- */
+// let numbers = [];
 
-level = 1;
-level = "hiii";
+/** compiler assign any[] type and we add element like */
 
-//Another example of for learn
+// number[0] = 1;
+// number[1] = "string";
 
-// function render(document) {
-//   console.log(document);
-// }
+/**always assing type a */
 
-/** Look and hover of render fn parameter document
- * it's show compilation error(document is any type)
- */
+let numbers: number[] = [];
 
-/** consider one scenario when we convert our javascript code
- * into typescript. impossible for us to which type of parameter we receive in this type functions where we use "any" type
- *
- * we solve this error two way
- * 1) annotated parameter like render(document:any)
- * what happne when lot's of error in the code we don't go everywhere and annotated like this
- * 2) We can disable this type of error configuring typscript compiler in tsconfing.json
- */
+/** Typscript give one benifits is that is code completion and intelligence */
 
-function render(document) {
-  console.log(document);
-}
+// numbers.forEach(n=>n.)
+
+/** (n=>n.) we see all the properties and method of number object because our editor knows the type of "n" and they offer code complition. they boost productivity  */
