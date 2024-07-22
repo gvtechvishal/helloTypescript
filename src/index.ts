@@ -1,103 +1,90 @@
-/**Let's see how typescript prevent error when working with functions  */
+/** In javascript objects are dynamic. change the shape of object through out life time of program */
 
-function calculateTax(income: number) {}
+// let employee = {
+//   id: 1,
+// };
 
-/** By default typscript set return type is void for this type of function */
+// employee.name = 'vishal' // it's valide on javascript
 
-function calculateTax1(income: number) {
-  return 0;
-}
+/** but implicitly typescript compiler give type to employee and give error we can also annotated type like   */
 
-/** typescript implisitly set return type of this function is number
+// let employee: {
+//   id: number;
+//   name: string;
+// } = {
+//   id: 1,
+// };
+
+// employee.name = "vishal";
+
+/** upper code give error because we don't initialize proply we also provide name also.
+ * 
+ * We can solve this problem tw 
+ 
+*/
+
+// let employee: {
+//   id: number;
+//   name: string;
+// } = {
+//   id: 1,
+//   name: "", // we can not set value of 'undefined' or 'null'
+// };
+
+// employee.name = "vishal";
+
+/**
  *
- * Best practise alsway annotated return typr of functions it's help to other people use very well */
-function calculateTax2(income: number): number {
-  return 0;
-}
-
-/** see the "income" parameter it's never use in function we can detect this type of variable using compiler option and it's best practice to enable option  Type checking>noUnusedParameters we implicitly enable it's because they are not part of strick option */
-
-// function calculateTax3(income: number): number {
-//   if (income < 50_000) {
-//     return income * 1.2;
-//   }
-// }
-
-/** This function give error on  return type see by uncomment  uper function code and see the error  */
-
-// function calculateTax3(income: number) {
-//   if (income < 50_000) {
-//     return income * 1.2;
-//   }
-//   // if the condition is false javascript function implicity return by "undefined" it generated error
-// }
-
-/** upper function we remove the ":number" they remove error but problem is it's return "undefined" that generate error in code.
- *
- * we can prevent this type of error using compiler configuartion TypeChecking > noImplicitReturns option
- *
- * we explicitlly enable this option because this option is also not part of strick setting..
- *
- * write upper function like
+ * we can solve this make second propety optional... but it's not good.. make code good every employee have name we can not set name as optional because it's not write
  */
 
-function calculateTax3(income: number): number {
-  if (income < 50_000) {
-    return income * 1.2;
-  }
-  return income * 1.3;
-}
+// let employee: {
+//   id: number;
+//   name?: string;
+// } = {
+//   id: 1,
+// };
 
-/** Also one usefully compliler setting or unused local variables TypeChecking > noUnusedLocals*/
+// employee.name = "vishal";
 
-function calculateTax4(income: number): number {
-  // uncomment below line for showing warning msg of compiler
-  //   let x;
-  if (income < 50_000) {
-    return income * 1.2;
-  }
-  return income * 1.3;
-}
+/** some time we make property of object readonly so we can not change value of propety accidently */
 
-/** case:-1 see two function for passing multiple argument to function and how to pass optional argument */
+// let employee: {
+//   id: number;
+//   name?: string;
+// } = {
+//   id: 1,
+//   name: "vishal",
+// };
 
-function calculateTax5(income: number, taxYear: number): number {
-  if (taxYear < 2022) {
-    return income * 1.2;
-  }
-  return income * 1.3;
-}
+// // so we change the propety "id" change of upper object
 
-// we pass exact two argument like
+// employee.id = 0; // this is right and change the 'id'
 
-// calculateTax5(10_000, 2022);
+/** solve this issue using readonly modifire */
 
-/** in javascript we know we can pass any number of argument but typscript is not allow..
- *
- *
- * how to make second parameter optionally.. see below code
- */
+// let employee: {
+//   readonly id: number;
+//   name?: string;
+// } = {
+//   id: 1,
+//   name: "vishal",
+// };
 
-function calculateTax6(income: number, taxYear?: number): number {
-  if ((taxYear || 2022) < 2022) {
-    return income * 1.2;
-  }
-  return income * 1.3;
-}
+// employee.id = 0; // this is wrong and not change the 'id'
 
-// we call like calculateTax5(10_000);
+/** How to define method of this object  */
 
-/** but it is not good way we can use like default value of parameter concept...
- *
- * if we pass argument than default value replace with argument value
- */
+let employee: {
+  readonly id: number;
+  name: string;
+  retire: (date: Date) => void;
+} = {
+  id: 1,
+  name: "vishal",
+  retire: (date: Date) => {
+    console.log(date);
+  },
+};
 
-function calculateTax7(income: number, taxYear = 2022): number {
-  if (taxYear < 2022) {
-    return income * 1.2;
-  }
-  return income * 1.3;
-}
-
-//first way call calculateTax7(10_000)
-//second way call calculateTax7(10_000,2024) replace the default value
+/** see the syntax of work with object look ugly and thet make our code verbose next section we will learn how to better this code */
