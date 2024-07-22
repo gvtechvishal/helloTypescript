@@ -1,10 +1,10 @@
 "use strict";
-var Size;
-(function (Size) {
-    Size[Size["Small"] = 1] = "Small";
-    Size[Size["Medium"] = 2] = "Medium";
-    Size[Size["Large"] = 3] = "Large";
-})(Size || (Size = {}));
-let mySize = Size.Medium;
-console.log(mySize);
+let age = 24;
+if (age < 18) {
+    age = age + 10;
+}
+else {
+    age = age + 20;
+}
+console.log("age-->", age);
 //# sourceMappingURL=index.js.map
