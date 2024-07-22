@@ -1,90 +1,40 @@
-/** In javascript objects are dynamic. change the shape of object through out life time of program */
-
-// let employee = {
-//   id: 1,
-// };
-
-// employee.name = 'vishal' // it's valide on javascript
-
-/** but implicitly typescript compiler give type to employee and give error we can also annotated type like   */
-
-// let employee: {
-//   id: number;
-//   name: string;
-// } = {
-//   id: 1,
-// };
-
-// employee.name = "vishal";
-
-/** upper code give error because we don't initialize proply we also provide name also.
- * 
- * We can solve this problem tw 
- 
-*/
-
-// let employee: {
-//   id: number;
-//   name: string;
-// } = {
-//   id: 1,
-//   name: "", // we can not set value of 'undefined' or 'null'
-// };
-
-// employee.name = "vishal";
-
-/**
+/**  Below code there is three type of problem
  *
- * we can solve this make second propety optional... but it's not good.. make code good every employee have name we can not set name as optional because it's not write
+ * 1) If we have multiple emplyoee objects every time we repete the same code for typ.(DRY) WE SHOULD AVOID
+ * 2) If other employee object might have other propeties so we said this two object have not consistant shap.
+ * 3) overall this structure of code very hard to read and understand also
  */
 
 // let employee: {
-//   id: number;
-//   name?: string;
-// } = {
-//   id: 1,
-// };
-
-// employee.name = "vishal";
-
-/** some time we make property of object readonly so we can not change value of propety accidently */
-
-// let employee: {
-//   id: number;
-//   name?: string;
-// } = {
-//   id: 1,
-//   name: "vishal",
-// };
-
-// // so we change the propety "id" change of upper object
-
-// employee.id = 0; // this is right and change the 'id'
-
-/** solve this issue using readonly modifire */
-
-// let employee: {
 //   readonly id: number;
-//   name?: string;
+//   name: string;
+//   retire: (date: Date) => void;
 // } = {
 //   id: 1,
 //   name: "vishal",
+//   retire: (date: Date) => {
+//     console.log(date);
+//   },
 // };
 
-// employee.id = 0; // this is wrong and not change the 'id'
+/**
+ * =======>>> that why we use type aliases
+ *
+ *
+ * Using type aliases we make custom type
+ */
 
-/** How to define method of this object  */
-
-let employee: {
+type Employee = {
   readonly id: number;
   name: string;
   retire: (date: Date) => void;
-} = {
+};
+// this is single place where we define shap of employee object and reuse multiple places
+
+let employee: Employee = {
   id: 1,
   name: "vishal",
   retire: (date: Date) => {
     console.log(date);
   },
 };
-
-/** see the syntax of work with object look ugly and thet make our code verbose next section we will learn how to better this code */
