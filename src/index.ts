@@ -1,18 +1,26 @@
-/** Union types :-  we gave variable or functional parameter more than one type */
+/** we learn about union type.we also another type combining technique called "intersection" */
 
-function kgToLbs(weight: number | string): number {
-  // in this time we dont no what is type of 'weight'. we saw only propery or method common in number and string
-  // here we use one technique called "Narrowing".
+// let weight : number & string;
 
-  if (typeof weight === "number") {
-    // in this block compiler know weight is number so we can see all property and method of number object.
-    return weight * 2.2;
-  } else {
-    // here we saw all property and method of string object.
+/** upper variable contain both type at same type but it's technically wrong or impssible we dont have
+ * any variable conatin both number and string at same time.
+ *
+ * so we look more realistic examples
+ */
 
-    return parseInt(weight) * 2.2;
-  }
-}
-// so we call upper function two way
-// kgToLbs(10);
-//kgToLbs('10kg');
+type Draggable = {
+  drag: () => void;
+};
+
+type Resizable = {
+  resize: () => void;
+};
+
+type UIWidget = Draggable & Resizable;
+
+// UIwidget call intersection type
+
+let textBox: UIWidget = {
+  drag: () => {},
+  resize: () => {},
+};
