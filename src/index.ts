@@ -1,26 +1,36 @@
-/** Literal (exact,specific) */
-
-/**Some time we limit the value to assign the variables there we use "literals" */
-
-// declare a variable "quantity" they only have two value 50 or 100.
-
-// let quantity: number;
-// Upper line code take any numbers.. so we use literals types like
-
-// let quantity: 50=51
-/**Upper line of code only store 50 not 51.
+/** How to working with null value in typescripts..
  *
- * we also use here union type ike
+ *
+ * TYPESCRIPT is very strict about using null and undefined values because we know
+ * this values common source of bug in our application
  */
 
-// let quantity: 50 | 100;
+// function greet(name: string) {
+//   console.log(name.toUpperCase());
+// }
 
-/** We also improve code here */
+// greet(null)
+/**it's complete valid in vanilla javascript code. we we run this program it's crash.
+ * we don't call method of toUpperCase() on null or undefined value.
+ */
 
-type Quantity = 50 | 100;
+// greet(null);
+/** By default typescript compiler stop us using null or undefined values.
+ *
+ * By default when our type cheking is strict in tsconfig file. in this setting "strictNullChecks" also true so
+ * compiler gives errors.
+ *
+ * how to solve this type of error consider below example
+ */
 
-let quantity: Quantity = 50;
+function greet(name: string | null | undefined) {
+  if (name) {
+    console.log(name.toUpperCase());
+  } else {
+    console.log("Hola!");
+  }
+}
 
-/** Literals also strings */
-
-type Metric = "cm" | "inch";
+greet(null);
+/** we also pass undefined also and update union operator */
+greet(undefined);
