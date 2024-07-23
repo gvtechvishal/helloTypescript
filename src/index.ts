@@ -1,26 +1,26 @@
-/** we learn about union type.we also another type combining technique called "intersection" */
+/** Literal (exact,specific) */
 
-// let weight : number & string;
+/**Some time we limit the value to assign the variables there we use "literals" */
 
-/** upper variable contain both type at same type but it's technically wrong or impssible we dont have
- * any variable conatin both number and string at same time.
+// declare a variable "quantity" they only have two value 50 or 100.
+
+// let quantity: number;
+// Upper line code take any numbers.. so we use literals types like
+
+// let quantity: 50=51
+/**Upper line of code only store 50 not 51.
  *
- * so we look more realistic examples
+ * we also use here union type ike
  */
 
-type Draggable = {
-  drag: () => void;
-};
+// let quantity: 50 | 100;
 
-type Resizable = {
-  resize: () => void;
-};
+/** We also improve code here */
 
-type UIWidget = Draggable & Resizable;
+type Quantity = 50 | 100;
 
-// UIwidget call intersection type
+let quantity: Quantity = 50;
 
-let textBox: UIWidget = {
-  drag: () => {},
-  resize: () => {},
-};
+/** Literals also strings */
+
+type Metric = "cm" | "inch";
