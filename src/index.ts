@@ -1,25 +1,41 @@
-/**  When we work with null and undfined values some time we need to provide fallback default value *..
+/** Type assertions:-
  *
- * see the below code user not provide and speed value
+ *
+ * Some time we know more about type of object then typescript..
+ *
+ * here real example
  */
 
-let speed: number | null = null;
+let phone = document.getElementById("phone");
 
-let ride = {
-  /** we know that Logical || operate check truthy or falsy value
-   * Falsy vlaue (null,undefined,'',false,0)
-   *
-   * see the 0 is falsy value.
-   *
-   * if user enter 0 the speed property become 30.
-   *
-   * how to solve this scenario?? like this
-   *
-   * speed : speed !== null ? speed : 30
-   *
-   * but in typescript we solve better way using
-   * "NULLISH COALESCING OPERATOR"
-   */
-  speed: speed ?? 30,
-  /** Upper line of code describe if the speed not null or undefined use speed value */
-};
+/**
+  They return "HTMLElement" type of object right..
+  
+  --> but we not access value propert.
+  
+  Upper line of code consider we get input from input element and that element 
+  type "HTMLInputElement" and this type of objects have value property right...
+  
+  we know more about type of object then typscript...
+  so using type assertion we tell the typescript compiler which type of object are
+  */
+
+let phone1 = document.getElementById("phone") as HTMLInputElement;
+//second type of syntax
+let phone2 = <HTMLInputElement>document.getElementById("phone");
+
+/** now we can access the value property like.. */
+
+console.log(phone1.value);
+
+/** NOTE:- IF getElementById('phone') return object is not HTMLInputElement object 
+  
+ let phone1 = document.getElementById("phone") as HTMLInputElement;
+
+ Upper line not generate any exception  and we acess the propety like
+
+ phone1.value 
+
+ out program will be carsh....
+ BE AWARE OF THIS........................
+*/
