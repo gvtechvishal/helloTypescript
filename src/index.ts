@@ -1,40 +1,18 @@
-/**  Below code there is three type of problem
- *
- * 1) If we have multiple emplyoee objects every time we repete the same code for typ.(DRY) WE SHOULD AVOID
- * 2) If other employee object might have other propeties so we said this two object have not consistant shap.
- * 3) overall this structure of code very hard to read and understand also
- */
+/** Union types :-  we gave variable or functional parameter more than one type */
 
-// let employee: {
-//   readonly id: number;
-//   name: string;
-//   retire: (date: Date) => void;
-// } = {
-//   id: 1,
-//   name: "vishal",
-//   retire: (date: Date) => {
-//     console.log(date);
-//   },
-// };
+function kgToLbs(weight: number | string): number {
+  // in this time we dont no what is type of 'weight'. we saw only propery or method common in number and string
+  // here we use one technique called "Narrowing".
 
-/**
- * =======>>> that why we use type aliases
- *
- *
- * Using type aliases we make custom type
- */
+  if (typeof weight === "number") {
+    // in this block compiler know weight is number so we can see all property and method of number object.
+    return weight * 2.2;
+  } else {
+    // here we saw all property and method of string object.
 
-type Employee = {
-  readonly id: number;
-  name: string;
-  retire: (date: Date) => void;
-};
-// this is single place where we define shap of employee object and reuse multiple places
-
-let employee: Employee = {
-  id: 1,
-  name: "vishal",
-  retire: (date: Date) => {
-    console.log(date);
-  },
-};
+    return parseInt(weight) * 2.2;
+  }
+}
+// so we call upper function two way
+// kgToLbs(10);
+//kgToLbs('10kg');
