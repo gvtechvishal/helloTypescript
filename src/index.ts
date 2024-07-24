@@ -1,29 +1,48 @@
-/** How to work unknown type..
+/** never type::--  which represent values that never occure
  *
- * we know "any" type and avoid as a possible.
+ * this type not use quite often...
  *
- * let consider where we converting javascript to typescript code and
- * we have situation where we use any type.
- *
- * see the below example
+ * let see some examples...
  */
 
-function render(document: any) {
-  // we code like
-  document.move();
-  document.fly();
-  document.whateverWeWant();
-  // here not type cheking..
-  /** if our program is run document not contain any of the method
-   * our program crash so insted applying "any" type we use "unknown".. */
-}
+/**
+ * we define function that process the events continuously.
+ * constantly watching a message queue waiting for next events
+ */
 
-function render1(document: unknown) {
-  // we use type narrowing
-
-  if (document instanceof wordDocument) {
-    document.move();
+function processEvents(): never {
+  while (true) {
+    // Read the msg from a queue
   }
-  document.fly();
-  document.whateverWeWant();
 }
+
+processEvents();
+
+/** after calling the function we known that below line never executing because function
+ * never returns because we have infinet loop..
+ *
+ * so we have apply return type "never" to function tell the compiler this function never returns..
+ *
+ * after the give return type "never" to function below line blur see
+ */
+console.log("Hello world");
+
+/** This is benefit of use never type that detect the unreachable code but
+ * we configure the tsconfig.json file
+ */
+
+/** see the below example aslo like  */
+
+function reject(message: string): never {
+  throw new Error(message);
+}
+
+/** If we call like
+ *
+ * reject(.....);
+ * console.log('hellow world')
+ *
+ * after the calling function we dont reach below code
+ *
+ * that why we use type never that show unreachable code.
+ */
