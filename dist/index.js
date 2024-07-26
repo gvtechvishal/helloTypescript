@@ -1,26 +1,21 @@
 "use strict";
-class Animal {
-    constructor(name, age, specied) {
-        this.name = name;
-        this._age = age;
-        this.specied = specied;
+class Account {
+    constructor(id, user, _balance, nickname) {
+        this.id = id;
+        this.user = user;
+        this._balance = _balance;
+        this.nickname = nickname;
     }
-    getAge() {
-        return this._age;
+    deposit(amount) {
+        if (amount <= 0) {
+            throw new Error("Enter valide amount");
+        }
     }
-}
-class Dog extends Animal {
-    constructor(name, age, dogname) {
-        super(name, age, "Dog");
-        this.Dogname = dogname;
-    }
-    getSpecies() {
-        return this.specied;
-    }
-    getDogName() {
-        return this.Dogname;
+    get balance() {
+        return this._balance;
     }
 }
-let myDog = new Dog("buddy", 20, "mehlll");
-console.log(myDog);
+let account = new Account(1, "mosh", 0);
+account.deposit(100);
+console.log(account.balance);
 //# sourceMappingURL=index.js.map
