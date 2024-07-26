@@ -1,22 +1,26 @@
 "use strict";
-class Account {
-    constructor(id, user, balance, nickname) {
-        this.id = id;
-        this.user = user;
-        this._balance = balance;
-        this.nickname = nickname;
+class Animal {
+    constructor(name, age, specied) {
+        this.name = name;
+        this._age = age;
+        this.specied = specied;
     }
-    deposit(amount) {
-        if (amount <= 0) {
-            throw new Error("Enter valide amount");
-        }
-        this._balance += amount;
-    }
-    getBalance() {
-        return this._balance;
+    getAge() {
+        return this._age;
     }
 }
-let account = new Account(2, "mosh", 0);
-account.deposit(100);
-console.log(account.getBalance());
+class Dog extends Animal {
+    constructor(name, age, dogname) {
+        super(name, age, "Dog");
+        this.Dogname = dogname;
+    }
+    getSpecies() {
+        return this.specied;
+    }
+    getDogName() {
+        return this.Dogname;
+    }
+}
+let myDog = new Dog("buddy", 20, "mehlll");
+console.log(myDog);
 //# sourceMappingURL=index.js.map
