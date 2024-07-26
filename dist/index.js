@@ -1,9 +1,10 @@
 "use strict";
 class Account {
-    constructor(id, user, balance) {
+    constructor(id, user, balance, nickname) {
         this.id = id;
         this.user = user;
         this.balance = balance;
+        this.nickname = nickname;
     }
     deposit(amount) {
         if (amount <= 0) {
@@ -12,9 +13,9 @@ class Account {
         this.balance += amount;
     }
 }
-let account = new Account(2, "mosh", 0);
+let account = new Account(2, "mosh", 0, "mosheee");
 account.deposit(100);
-console.log(typeof account);
+console.log(account);
 console.log(account instanceof Account);
 const User1 = new Account(1, "vishal", 0);
 try {
