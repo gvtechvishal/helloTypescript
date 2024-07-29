@@ -1,31 +1,69 @@
-/** ------------------:Static signatures:----------------- */
-/** In javascript we add property to object dynamically right like,,,
+/**Static member and method :- They availabe only why class not a part of instance or objects...
  *
- * let person = {};
- * person.name = 'vishal';
+ * consider example:- How to show the active ride in Uber like example
  *
- * upper line of code right in javascript right....
+ * */
+
+// class Ride {
+//   activeRide: number = 0;
+
+//   start() {
+//     this.activeRide++;
+//   }
+//   stope() {
+//     this.activeRide--;
+//   }
+// }
+
+// //creat two ride
+
+// let ride1 = new Ride();
+// ride1.start();
+
+// let ride2 = new Ride();
+// ride2.start();
+
+// console.log(ride1.activeRide);
+// console.log(ride2.activeRide);
+
+/** output:- 1 and 1
  *
- * But in typescript this is not allow because typescript very strict about shape of objects..
+ * but here we two active ride right why this happan because we have two separate object and each object
+ * separate space in memory. so each object independently tracking active rides.
  *
- * But some situations we need to add property dynamically in typescript so we use "index signatures"..
+ * how to solve this...
  *
- * Example:-- Consider one scenario where we assign seat to person who have ticket for consert..
+ * we need to store activeRide in global space for track of active ride that we use static property..
+ *
+ * Static Property:- static property belong to class not an object. so we have only one instance of that propery in memory
  */
 
-class SeatAssignment {
-  /** we dont declare individual property like
-      A1 :string;
-      A2 :string;
-      if we have 1000 ticket so we can not write heare like this 
+class Ride {
+  private static _activeRide: number = 0;
 
-   */
-  //we use index signature
-  [seatNumber: string]: string;
+  start() {
+    Ride._activeRide++;
+  }
+  stope() {
+    Ride._activeRide--;
+  }
+
+  static get activeRide() {
+    return Ride._activeRide;
+  }
 }
 
-let seat = new SeatAssignment();
+//creat two ride
 
-seat.A1 = "VISHAL";
-seat.A2 = "KEYUR";
-//WE DONT STORE NUMBER HEARE
+let ride1 = new Ride();
+ride1.start();
+
+let ride2 = new Ride();
+ride2.start();
+
+console.log(Ride.activeRide);
+
+/** This way static property work but one problem is we can change the static propety from anywhere from the program
+ * so we can write like Ride.activeRides = 100 like,, but we can solve using access modifier "private" to solve this propblm.
+ *
+ */
