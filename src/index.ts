@@ -1,47 +1,31 @@
-/** --------------:-Getter and Setter:--------- */
-/** Problem discution :-- look this line of code account.getBalance()..
+/** ------------------:Static signatures:----------------- */
+/** In javascript we add property to object dynamically right like,,,
  *
- * it is use to access private property but it is ugly... so we cane access like
- * "account.balance".. like simple property access of object right...
- * For this purpose we use the "getter and setter".
+ * let person = {};
+ * person.name = 'vishal';
  *
- * soo getter or setter use to set or get properties of class
+ * upper line of code right in javascript right....
+ *
+ * But in typescript this is not allow because typescript very strict about shape of objects..
+ *
+ * But some situations we need to add property dynamically in typescript so we use "index signatures"..
+ *
+ * Example:-- Consider one scenario where we assign seat to person who have ticket for consert..
  */
 
-class Account {
-  constructor(
-    public readonly id: number,
-    public user: string,
-    private _balance: number,
-    public nickname?: string
-  ) {}
+class SeatAssignment {
+  /** we dont declare individual property like
+      A1 :string;
+      A2 :string;
+      if we have 1000 ticket so we can not write heare like this 
 
-  deposit(amount: number) {
-    if (amount <= 0) {
-      throw new Error("Enter valide amount");
-    }
-  }
-
-  //  getter function
-  get balance(): number {
-    return this._balance;
-  }
-
-  //setter function.. but this setter function logically incorrect so comment out
-
-  // set balance(value: number) {
-  //   //we use validation for propertiy value
-
-  //   if (value <= 0) {
-  //     throw new Error("Invalide value");
-  //   }
-  //   this._balance += value;
-  // }
+   */
+  //we use index signature
+  [seatNumber: string]: string;
 }
 
-let account = new Account(1, "mosh", 0);
-account.deposit(100);
-//below line of code only read allow the read balance we can not write it's
-console.log(account.balance);
+let seat = new SeatAssignment();
 
-// account.balance = 34; // this give error because we can not set private propert here if class have setter function for set balance then set it.
+seat.A1 = "VISHAL";
+seat.A2 = "KEYUR";
+//WE DONT STORE NUMBER HEARE
