@@ -1,69 +1,31 @@
-/**Static member and method :- They availabe only why class not a part of instance or objects...
- *
- * consider example:- How to show the active ride in Uber like example
- *
- * */
+/** Inheritance:- Inheritance is mechenism that allow us to reuse code. */
 
-// class Ride {
-//   activeRide: number = 0;
-
-//   start() {
-//     this.activeRide++;
-//   }
-//   stope() {
-//     this.activeRide--;
-//   }
-// }
-
-// //creat two ride
-
-// let ride1 = new Ride();
-// ride1.start();
-
-// let ride2 = new Ride();
-// ride2.start();
-
-// console.log(ride1.activeRide);
-// console.log(ride2.activeRide);
-
-/** output:- 1 and 1
- *
- * but here we two active ride right why this happan because we have two separate object and each object
- * separate space in memory. so each object independently tracking active rides.
- *
- * how to solve this...
- *
- * we need to store activeRide in global space for track of active ride that we use static property..
- *
- * Static Property:- static property belong to class not an object. so we have only one instance of that propery in memory
+/** consider a student and teacher class have firstName,lastName propeties and talk(),walk() method.. we don't repeate this
+ * code to every class we make a separate class called person that have this properties and methodes and we inherite in student and teacher class.
  */
 
-class Ride {
-  private static _activeRide: number = 0;
+class Person {
+  constructor(public firstName: string, public lastName: string) {}
 
-  start() {
-    Ride._activeRide++;
-  }
-  stope() {
-    Ride._activeRide--;
+  get fullName() {
+    return this.firstName + " " + this.lastName;
   }
 
-  static get activeRide() {
-    return Ride._activeRide;
+  walk() {
+    console.log("walking");
   }
 }
 
-//creat two ride
+class Student extends Person {
+  constructor(public studentId: number, firstName: string, lastName: string) {
+    super(firstName, lastName);
+  }
 
-let ride1 = new Ride();
-ride1.start();
+  takeTest() {
+    console.log("Taking a test");
+  }
+}
 
-let ride2 = new Ride();
-ride2.start();
+let student = new Student(1, "vishal", "vishal@gmail.com");
 
-console.log(Ride.activeRide);
-
-/** This way static property work but one problem is we can change the static propety from anywhere from the program
- * so we can write like Ride.activeRides = 100 like,, but we can solve using access modifier "private" to solve this propblm.
- *
- */
+console.log(student.fullName);
