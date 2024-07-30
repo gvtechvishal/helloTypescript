@@ -1,7 +1,4 @@
-/**  -------------: polymorphism :--- one of the core concept of oop...
-   poly means "many" and morph  means "forms":- polymorphism means many forms.. and this reffer to this situation 
-   where objects takes many different forms..
-*/
+/** protected :- Protected member access anywhere within class but not outside but differnce is protected members are inherited but private not.  */
 
 class Person {
   constructor(public firstName: string, public lastName: string) {}
@@ -10,7 +7,7 @@ class Person {
     return this.firstName + " " + this.lastName;
   }
 
-  walk() {
+  protected walk() {
     console.log("walking");
   }
 }
@@ -21,59 +18,8 @@ class Student extends Person {
   }
 
   takeTest() {
+    //we call protected member here or any where in this class
+    this.walk();
     console.log("Taking a test");
   }
 }
-
-class Teacher extends Person {
-  override get fullName() {
-    return "Professor " + super.fullName;
-  }
-}
-
-class Principle extends Person {
-  override get fullName() {
-    return "Principle " + super.fullName;
-  }
-}
-
-/** This function show the polymorphism in action.. simple print some person name */
-
-function printNames(people: Person[]) {
-  for (let person of people) {
-    console.log(person.fullName);
-  }
-}
-
-// call this function
-
-printNames([
-  new Student(1, "vishal", "kagadiya"),
-  new Teacher("mosh", "hamdani"),
-  new Principle("vishal", "kagadiay"),
-]);
-
-/** Why this code call polymorphism:--- hover the mouse on "person" object in for loop it's type is "Person".
- * Each ittration of for loop the "person" object taking different forms.. in the first ittretion they take a form
- * of student because our first element of array is student object and second ittration our person object take the form
- * teacher object..
- *
- * That is why fullName property or fullName getter give different outputs..
- * so our person object taking many forms they act like polymorphically.
- *
- * why is powerfull??
- *
- * tomoorrow we create a new class like principle which represents school principle and we can print the full name of
- * priciple using "printNames" function without making a single change of this functions.
- */
-
-/**
- * Without making single change of code in function that lead to another priciple of oop called "open closed principle"
- *
- *
- * Classes should be open for extension and closed for modification.
- *
- 
- */
-
-/** why we use override keyword because we say the compiler this is method is override that help to polymorphic behaviour in functions where our object take many form */
