@@ -1,13 +1,7 @@
-/** Method overriding:- Process to change the implementation of same methods that define in base class..
- * sometime we need to change the code in inherited from base class like method implementation..
- *
- * Method overriding in TypeScript (and in object-oriented programming in general) allows a subclass to provide a specific implementation of a method that is already defined in its superclass.
- * The overriding method in the subclass should have the same name, parameters, and return type as the method in the superclass.
- * This allows the subclass to modify or extend the behavior of the method.
- *
- * example look full name getter in base class of person.. we want inherite this code in teacher class but we get full name
- * with "professor" prefix... in this case we need to override method of base class.
- */
+/**  -------------: polymorphism :--- one of the core concept of oop...
+   poly means "many" and morph  means "forms":- polymorphism means many forms.. and this reffer to this situation 
+   where objects takes many different forms..
+*/
 
 class Person {
   constructor(public firstName: string, public lastName: string) {}
@@ -32,13 +26,54 @@ class Student extends Person {
 }
 
 class Teacher extends Person {
-  // with out "override" keyword we got same result that why we configure in tscofig files..
-
-  // we forgot the 'override' keyword we disconnect to base class
   override get fullName() {
     return "Professor " + super.fullName;
   }
 }
 
-let teacher = new Teacher("vishal", "kagadiya");
-console.log(teacher.fullName);
+class Principle extends Person {
+  override get fullName() {
+    return "Principle " + super.fullName;
+  }
+}
+
+/** This function show the polymorphism in action.. simple print some person name */
+
+function printNames(people: Person[]) {
+  for (let person of people) {
+    console.log(person.fullName);
+  }
+}
+
+// call this function
+
+printNames([
+  new Student(1, "vishal", "kagadiya"),
+  new Teacher("mosh", "hamdani"),
+  new Principle("vishal", "kagadiay"),
+]);
+
+/** Why this code call polymorphism:--- hover the mouse on "person" object in for loop it's type is "Person".
+ * Each ittration of for loop the "person" object taking different forms.. in the first ittretion they take a form
+ * of student because our first element of array is student object and second ittration our person object take the form
+ * teacher object..
+ *
+ * That is why fullName property or fullName getter give different outputs..
+ * so our person object taking many forms they act like polymorphically.
+ *
+ * why is powerfull??
+ *
+ * tomoorrow we create a new class like principle which represents school principle and we can print the full name of
+ * priciple using "printNames" function without making a single change of this functions.
+ */
+
+/**
+ * Without making single change of code in function that lead to another priciple of oop called "open closed principle"
+ *
+ *
+ * Classes should be open for extension and closed for modification.
+ *
+ 
+ */
+
+/** why we use override keyword because we say the compiler this is method is override that help to polymorphic behaviour in functions */
