@@ -1,40 +1,134 @@
-/** Abstract classes and methods
- *
- * Consider this example where we bulild simple paint app..that allow to draw circle,rectangle,triangle on canvas.
- *
- * So every shape have common properties like color,size,position
- *
+/** Interfaces */
+/**
+ * In TypeScript, an interface is a way to define the shape of an object. It specifies the types of properties and methods that an object can have. Interfaces are a powerful way to enforce type checking and ensure that objects adhere to a specific structure.
+
+Defining an Interface
+To define an interface in TypeScript, use the interface keyword followed by the name of the interface and a block of property and method declarations.
+
+Example
+Here is an example of a basic interface: */
+
+interface Person {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+const person: Person = {
+  name: "John Doe",
+  age: 30,
+  greet() {
+    console.log("Hello, " + this.name);
+  },
+};
+
+person.greet(); // Output: Hello, John Doe
+
+/**
+ * In this example:
+
+The Person interface defines three members: name, age, and greet.
+The person object adheres to the Person interface by providing implementations for the name, age, and greet properties.
+Optional Properties
+You can define optional properties in an interface by using the ? operator:
  */
 
-abstract class Shape {
-  constructor(public color: string) {}
-  // define render method
-
-  abstract render(): void;
-  // at this point we dont know how to render a shape because rendering algorithm depend on type of shape..
+interface Car {
+  make: string;
+  model: string;
+  year?: number; // Optional property
 }
 
-class Circle extends Shape {
-  constructor(public radius: number, color: string) {
-    super(color);
+const car1: Car = {
+  make: "Toyota",
+  model: "Corolla",
+};
+
+const car2: Car = {
+  make: "Ford",
+  model: "Mustang",
+  year: 2020,
+};
+
+/**In this example:
+
+The year property in the Car interface is optional.
+car1 does not provide a year, while car2 does.
+
+Readonly Properties
+
+You can define readonly properties in an interface to ensure that they cannot be modified after initialization:
+ */
+
+interface Book {
+  readonly title: string;
+  author: string;
+}
+
+const book: Book = {
+  title: "1984",
+  author: "George Orwell",
+};
+
+book.author = "Orwell"; // Allowed
+// book.title = 'Animal Farm'; // Error: Cannot assign to 'title' because it is a read-only property.
+
+/**In this example:
+
+The title property in the Book interface is readonly, so it cannot be modified after the book object is created.
+Extending Interfaces
+Interfaces can extend other interfaces, allowing you to build on existing structures: */
+
+interface Animal {
+  name: string;
+  age: number;
+}
+
+interface Dog extends Animal {
+  breed: string;
+}
+
+const myDog: Dog = {
+  name: "Buddy",
+  age: 5,
+  breed: "Golden Retriever",
+};
+
+/**
+ * In this example:
+
+The Dog interface extends the Animal interface, inheriting its properties and adding a new property breed.
+Implementing Interfaces in Classes
+Classes can implement interfaces to enforce the structure defined by the interface:
+ */
+
+interface Shape {
+  area(): number;
+  perimeter(): number;
+}
+
+class Rectangle implements Shape {
+  constructor(private width: number, private height: number) {}
+
+  area(): number {
+    return this.width * this.height;
   }
 
-  // this method for draw circle
-  override render(): void {
-    console.log("Rendering a circle");
+  perimeter(): number {
+    return 2 * (this.width + this.height);
   }
 }
 
-/** one problem in this implementation we create Shape objects */
+const rectangle = new Rectangle(10, 5);
+console.log(rectangle.area()); // Output: 50
+console.log(rectangle.perimeter()); // Output: 30
 
-// let shape = new Shape("red");
-// shape.render();
+/**
+ * 
+ * In this example:
 
-/** This make not any sense render a shape without what type of shape right..because shape is not real things like a circle.
- *  That why we use Abstract classes and methods...it is stop us being able to creating a instance of shape class we mark the class as
- * abstract..
- *
- * we use to "abstract" keyword for telling the compiler this is class shape is abstract.  not ready so another class like circle extended..
- *
- * abstract class have abstract methods also that are methods that no implementation.. so we prefix the method with abstract
+The Shape interface defines two methods: area and perimeter.
+The Rectangle class implements the Shape interface and provides concrete implementations for the area and perimeter methods.
+Summary
+Interfaces in TypeScript are used to define the structure of objects, ensuring type safety and consistency. They can include properties and methods, optional properties, readonly properties, and can be extended by other interfaces or implemented by classes. Using interfaces helps you create flexible and maintainable code.
  */
