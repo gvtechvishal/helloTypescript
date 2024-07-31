@@ -1,20 +1,40 @@
-/** Generic functions */
-/** look simple example of functions  */
+/** Generic Interfaces */
 
-function wrapInArray<T>(value: T) {
-  return [value];
+/** consider we have one website and fetch a users and products as well like
+ *
+ * http://mywebsite.com/users
+ * http://mywebsite.com/products
+ */
+
+// creating generic interface
+interface Result<T> {
+  //if we have error we have not data
+  data: T | null;
+  // somtime we got error when we calling backend services
+  error: string | null;
 }
 
-let numbers = wrapInArray("1");
-let numbers2 = wrapInArray(2);
+// dummy function for fetching
 
-/** This function is methods inside a class */
-
-class ArrayUtils {
-  static wrapInArray<T>(value: T) {
-    return [value];
-  }
+function fetch<T>(url: string): Result<T> {
+  return {
+    data: null,
+    error: null,
+  };
 }
 
-let numbers3 = ArrayUtils.wrapInArray(2);
-let numbers4 = ArrayUtils.wrapInArray("2");
+// individual interface for showing user and product object
+
+interface User {
+  username: string;
+}
+interface Product {
+  title: string;
+}
+
+let result = fetch<User>("url");
+
+result.data?.username;
+
+let result2 = fetch<Product>("url");
+result2.data?.title;
