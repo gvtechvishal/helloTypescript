@@ -1,40 +1,61 @@
-/** Generic Interfaces */
-
-/** consider we have one website and fetch a users and products as well like
+/** Generic Constraints:--
  *
- * http://mywebsite.com/users
- * http://mywebsite.com/products
+ * Some time we need to constraints the generic type of arguments
+ *
  */
 
-// creating generic interface
-interface Result<T> {
-  //if we have error we have not data
-  data: T | null;
-  // somtime we got error when we calling backend services
-  error: string | null;
+function echo<T>(value: T): T {
+  return value;
+}
+// we can pass any type of value here like
+
+echo(1);
+echo("1");
+echo(true);
+
+/** we constrant or limit the type of objects we can pass in functions. */
+
+function echo2<T extends number | string>(value: T): T {
+  return value;
 }
 
-// dummy function for fetching
+// we only pass string or number here
+echo2(2);
+echo2("2");
+// below line give the error
+// echo2(true);
 
-function fetch<T>(url: string): Result<T> {
-  return {
-    data: null,
-    error: null,
-  };
+//we also pass shape of obeject like
+
+function echo3<T extends { name: string }>(value: T): T {
+  return value;
 }
 
-// individual interface for showing user and product object
+echo3({ name: "vishal" });
 
-interface User {
-  username: string;
+// we also use interface for this like
+
+interface Person {
+  name: string;
 }
-interface Product {
-  title: string;
+
+function echo4<T extends Person>(value: T): T {
+  return value;
 }
 
-let result = fetch<User>("url");
+//we also constraint by class as well as like
 
-result.data?.username;
+class Person1 {
+  constructor(public name: string) {}
+}
 
-let result2 = fetch<Product>("url");
-result2.data?.title;
+class customer extends Person1 {}
+
+// now we can pass any instance of person or any classes that derived from person
+
+function echo5<T extends Person1>(value: T): T {
+  return value;
+}
+
+echo5(new Person1("vishal"));
+echo5(new customer("vishal"));
