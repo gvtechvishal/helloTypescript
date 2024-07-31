@@ -1,20 +1,20 @@
-/** --------------: Generic class for solving to problem:--------------- */
+/** Generic functions */
+/** look simple example of functions  */
 
-//we write one more generic types
-class keyValuePair<T> {
-  constructor(public key: T, public value: string) {}
+function wrapInArray<T>(value: T) {
+  return [value];
 }
 
-// we can pass like:--
+let numbers = wrapInArray("1");
+let numbers2 = wrapInArray(2);
 
-const pair = new keyValuePair<number>(1, "vishal");
-const pair2 = new keyValuePair<string>("2", "kanti");
-//compiler auto detect type of key
-const pai3 = new keyValuePair(1, "vishal");
+/** This function is methods inside a class */
 
-class keyValuePair2<K, V> {
-  constructor(public key: K, public value: V) {}
+class ArrayUtils {
+  static wrapInArray<T>(value: T) {
+    return [value];
+  }
 }
 
-//compiler auto detect
-const pair4 = new keyValuePair2("5", "vish");
+let numbers3 = ArrayUtils.wrapInArray(2);
+let numbers4 = ArrayUtils.wrapInArray("2");
