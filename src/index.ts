@@ -1,61 +1,67 @@
-/** Generic Constraints:--
+/**----------: Generic classes and inheritance:-------------------- */
+/**-----------: Extending Generic classes:-------------- */
+
+/** we can learn using one example of ecommers example  */
+
+interface Product {
+  name: string;
+  price: number;
+}
+
+// mechenism for storing different product,shopping cart,order and soo onnn.
+
+class Store<T> {
+  //this use in scenario 1
+  // private _objects: T[] = [];
+  //this use in scenario 2
+  protected _objects: T[] = [];
+
+  add(obj: T): void {
+    this._objects.push(obj);
+  }
+}
+
+/** without private we can access property objects and wipe out the stor objects like below code */
+
+// const store = new Store<Product>();
+// store._objects = [];
+
+//How we extend this generic classes
+/** we have three different scenario for extending classes */
+
+/** Scenario 1:-- Pass on the generic type parameter */
+
+//we build for compress the store
+
+class CompressibleStore<T> extends Store<T> {
+  compress() {}
+}
+
+let store2 = new CompressibleStore<Product>();
+
+store2.add({ name: "shoes", price: 2 });
+store2.compress();
+
+/** Scenario 2:-- Restrict the generic type parameter */
+class SearchableStore<T extends { name: string }> extends Store<T> {
+  find(name: string): T | undefined {
+    return this._objects.find((obj) => obj.name === name);
+  }
+}
+
+/** In find method obj.name compiler not know T contain name property..
  *
- * Some time we need to constraints the generic type of arguments
- *
+ * so we solve using constraint like extends {name:string}
  */
 
-function echo<T>(value: T): T {
-  return value;
+/** Scenario 3:-- Fixing the generic type parameter */
+/** Certain operation perform on product  */
+
+class ProductStore extends Store<Product> {
+  //this operation very specific to product
+  filterByCategory(category: string): Product[] {
+    //simplicity we return simple empty array
+
+    return [];
+  }
 }
-// we can pass any type of value here like
-
-echo(1);
-echo("1");
-echo(true);
-
-/** we constrant or limit the type of objects we can pass in functions. */
-
-function echo2<T extends number | string>(value: T): T {
-  return value;
-}
-
-// we only pass string or number here
-echo2(2);
-echo2("2");
-// below line give the error
-// echo2(true);
-
-//we also pass shape of obeject like
-
-function echo3<T extends { name: string }>(value: T): T {
-  return value;
-}
-
-echo3({ name: "vishal" });
-
-// we also use interface for this like
-
-interface Person {
-  name: string;
-}
-
-function echo4<T extends Person>(value: T): T {
-  return value;
-}
-
-//we also constraint by class as well as like
-
-class Person1 {
-  constructor(public name: string) {}
-}
-
-class customer extends Person1 {}
-
-// now we can pass any instance of person or any classes that derived from person
-
-function echo5<T extends Person1>(value: T): T {
-  return value;
-}
-
-echo5(new Person1("vishal"));
-echo5(new customer("vishal"));
