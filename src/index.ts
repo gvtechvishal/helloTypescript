@@ -1,31 +1,59 @@
-/**----------: key of operator:-------------------- */
+/**----------: Type Mapping :-------------------- */
+/** Type mapping in TypeScript involves creating new types by transforming properties of existing types. This is often done using mapped types, which allow you to iterate over the keys of a type and apply transformations to the properties. Mapped types are particularly useful for creating new types that are variations of existing ones, such as making all properties optional, readonly, or applying some other transformation. */
+
+/** 
+ * Basic Syntax
+The basic syntax of a mapped type is:
+
+
+type MappedType = {
+  [Key in keyof OriginalType]: TransformedType;
+};
+Here, Key is a type variable that iterates over the keys of OriginalType (obtained using keyof), and TransformedType can be any transformation or type expression.
+ */
+
+/**  problem discusstion:-  i have one interface of Product like below.. somewhere in our app we need to Product interface
+ * with readonly property.. so we create one another interface but it is not valide solution.. insted of we use type mapping for this problem like
+ *
+ */
+
 interface Product {
   name: string;
   price: number;
 }
-class Store<T> {
-  protected _objects: T[] = [];
 
-  add(obj: T): void {
-    this._objects.push(obj);
-  }
-  //add method for finding product base on property and value
+// here we create read only product
+type ReadOnlyProduct = {
+  readonly [key in keyof Product]: Product[key];
+};
 
-  // T is product
-  // keyof T => 'name' | 'price'
-  find(property: keyof T, value: unknown): T | undefined {
-    return this._objects.find((obj) => obj[property] === value);
-  }
-}
+let product: ReadOnlyProduct = {
+  name: "abc",
+  price: 3,
+};
 
-// how to use this implementation
+// this is not allow because we make all property readonly
+// product.name = "vish";
 
-let store = new Store<Product>();
-store.add({ name: "a", price: 1 });
+// we also make generic type also like
 
-store.find("name", "a");
-store.find("price", 1);
-// one problem here we call the function with not existing property..
-// when we run program our program is crash because no any product have 'nonExistingProperty' attribute
+type ReadOnly<T> = {
+  readonly [k in keyof T]: T[k];
+};
 
-// store.find("nonExistingProperty", 1);
+let product2: ReadOnly<Product> = {
+  name: "cake",
+  price: 3,
+};
+
+// we create Optional like
+
+type Optional<T> = {
+  [k in keyof T]?: T[k];
+};
+
+//we create nullable like
+
+type Nullable<T> = {
+  readonly [k in keyof T]: T[k] | null;
+};
