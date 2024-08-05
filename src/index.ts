@@ -1,28 +1,27 @@
-/** Method Decorators:-- */
+/** Accessor Decorators:- modify getter and setter */
 
-function Log(target: any, methodName: string, descriptor: PropertyDescriptor) {
-  // we do completelly replace say() method with new method like below code
-  // descriptor.value = function () {
-  //   console.log("new implementation");
-  // };
+function Capitalize(
+  target: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  const origanal = descriptor.get;
 
-  const original = descriptor.value as Function;
-  descriptor.value = function (message: string) {
-    //below line of code make more generic so we can use other type also
-    // descriptor.value = function (...args: any) {
-    console.log("Before");
-    //call original method.. first create reference of original method
-    // original.call(this, ...args);
-    original.call(this, message);
-    console.log("After");
+  descriptor.get = function () {
+    const result = origanal?.call(this);
+
+    return typeof result === "string" ? result.toUpperCase() : result;
   };
 }
 class Person {
-  @Log
-  say(message: string) {
-    console.log("Person says " + message);
+  constructor(public firstName: string, public lastName: string) {}
+
+  @Capitalize
+  get fullName() {
+    return `${this.firstName} ${this.lastName}`;
   }
 }
 
-let person = new Person();
-person.say("Hello");
+let person = new Person("vishal", "kagadiya");
+
+console.log(person.fullName);
