@@ -1,4 +1,4 @@
-/** Parameterize decorators */
+/** Decorators composition*/
 
 type ComponentOptions = {
   selector: string;
@@ -15,5 +15,10 @@ function Component(options: ComponentOptions) {
   };
 }
 
+function Pipe(constructor: Function) {
+  console.log("Pipe decorator called");
+  constructor.prototype.pipe = true;
+}
 @Component({ selector: "#my-profile" })
+@Pipe // call first and then pass to @Component
 class ProfileComponent {}
