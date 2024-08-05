@@ -1,27 +1,42 @@
-/** Accessor Decorators:- modify getter and setter */
+/** Property decorator */
 
-function Capitalize(
-  target: any,
-  methodName: string,
-  descriptor: PropertyDescriptor
-) {
-  const origanal = descriptor.get;
+function MinLength(length: number) {
+  // Here return actully decorator function
+  // property decoratore very similary to method decorator
 
-  descriptor.get = function () {
-    const result = origanal?.call(this);
+  return (target: any, propertyName: string) => {
+    let value: string;
 
-    return typeof result === "string" ? result.toUpperCase() : result;
+    const descriptor: PropertyDescriptor = {
+      get() {
+        return value;
+      },
+      set(newValue: string) {
+        if (newValue.length < length) {
+          throw new Error(
+            `${propertyName} should be at least ${length} characters long.`
+          );
+        }
+        value = newValue;
+      },
+    };
+
+    console.log(target, propertyName, descriptor);
+
+    Object.defineProperty(target, propertyName, descriptor);
   };
 }
-class Person {
-  constructor(public firstName: string, public lastName: string) {}
 
-  @Capitalize
-  get fullName() {
-    return `${this.firstName} ${this.lastName}`;
+class User {
+  //check password have minimum 4 length
+  @MinLength(4)
+  password: string;
+
+  constructor(password: string) {
+    this.password = password;
   }
 }
 
-let person = new Person("vishal", "kagadiya");
+let user = new User("1234fd5");
 
-console.log(person.fullName);
+console.log(user.password);

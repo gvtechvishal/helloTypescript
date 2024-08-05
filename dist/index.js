@@ -5,25 +5,32 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-function Capitalize(target, methodName, descriptor) {
-    const origanal = descriptor.get;
-    descriptor.get = function () {
-        const result = origanal === null || origanal === void 0 ? void 0 : origanal.call(this);
-        return typeof result === "string" ? result.toUpperCase() : result;
+function MinLength(length) {
+    return (target, propertyName) => {
+        let value;
+        const descriptor = {
+            get() {
+                return value;
+            },
+            set(newValue) {
+                if (newValue.length < length) {
+                    throw new Error(`${propertyName} should be at least ${length} characters long.`);
+                }
+                value = newValue;
+            },
+        };
+        console.log(target, propertyName, descriptor);
+        Object.defineProperty(target, propertyName, descriptor);
     };
 }
-class Person {
-    constructor(firstName, lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-    get fullName() {
-        return `${this.firstName} ${this.lastName}`;
+class User {
+    constructor(password) {
+        this.password = password;
     }
 }
 __decorate([
-    Capitalize
-], Person.prototype, "fullName", null);
-let person = new Person("vishal", "kagadiya");
-console.log(person.fullName);
+    MinLength(4)
+], User.prototype, "password", void 0);
+let user = new User("1234fd5");
+console.log(user.password);
 //# sourceMappingURL=index.js.map
